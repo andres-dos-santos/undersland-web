@@ -506,7 +506,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
         </div>
 
         <div
-          className="h-full touch-pan-y overflow-y-auto px-5 py-7 pb-36 [scrollbar-width:none] sm:px-10 sm:py-10 sm:pb-44 lg:px-16 [&::-webkit-scrollbar]:hidden"
+          className="h-full touch-pan-y overflow-y-auto px-2.5 py-7 pb-36 [scrollbar-width:none] sm:px-10 sm:py-10 sm:pb-44 lg:px-16 [&::-webkit-scrollbar]:hidden"
           onTouchCancel={() => {
             touchStart.current = null
           }}
