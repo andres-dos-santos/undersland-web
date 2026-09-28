@@ -494,7 +494,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
         </section>
       </aside>
 
-      <div className="relative h-full min-h-0 overflow-hidden border border-zinc-200 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/50 rounded-xl lg:col-span-5">
+      <div className="relative h-full min-h-0 overflow-hidden lg:border border-zinc-200 dark:border-zinc-700 lg:bg-zinc-50/50 lg:dark:bg-zinc-800/50 rounded-xl lg:col-span-5">
         <div
           aria-hidden="true"
           className="page-transition"
