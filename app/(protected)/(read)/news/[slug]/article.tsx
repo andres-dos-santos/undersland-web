@@ -4,6 +4,8 @@ import {
   AiTranslateIcon,
   ALargeSmall,
   ArrowDownIcon,
+  ArrowLeft01FreeIcons,
+  ArrowLeft02FreeIcons,
   ArrowLeftIcon,
   ArrowRightIcon,
   ArrowUpIcon,
@@ -346,16 +348,34 @@ function ArticleRoot({ children }: ArticleRootProps) {
   }, [decreaseLevel, increaseLevel, nextPostSlug, previousPostSlug, router])
 
   return (
-    <div className="grid h-full min-h-0 grid-cols-1 overflow-hidden lg:grid-cols-10">
-      <aside className="hidden col-span-2 h-full overflow-hidden border-r border-zinc-200 dark:border-zinc-800 lg:block">
-        <div className="flex items-center gap-4 border-b border-zinc-200 px-10 h-32 dark:border-zinc-800">
-          <LevelBadge level={levelIndex + 1} />
+    <div className="grid h-full min-h-0 grid-cols-1 grid-rows-[3.5rem_minmax(0,1fr)] overflow-hidden lg:grid-cols-10 px-2.5 lg:px-0">
+      <header className="h-14 lg:grid grid-cols-10 col-span-10 w-full">
+        <div className="col-span-2"></div>
+        <div className="col-span-5 h-full grid grid-cols-11">
+          <Link className="flex items-center col-span-3 gap-1.5" href="/">
+            <HugeiconsIcon
+              icon={ArrowLeft02FreeIcons}
+              className="size-4"
+              strokeWidth={1.5}
+            />
+            <p className="text-zinc-400 hover:text-zinc-900 text-[13px] dark:text-zinc-300/60 dark:hover:text-white">
+              Home
+            </p>
+          </Link>
 
-          <p className="text-xs sm:text-sm font-medium text-zinc-400 -tracking-wider line-clamp-2">
-            {title}
-          </p>
+          <div className="flex items-center justify-center col-span-5 gap-2.5">
+            <LevelBadge level={levelIndex + 1} />
+            <p className="text-xs max-w-1/2 font-medium text-zinc-400 -tracking-wider line-clamp-1">
+              {title}
+            </p>
+          </div>
+
+          <div className="col-span-3"></div>
         </div>
+        <div className="col-span-3"></div>
+      </header>
 
+      <aside className="hidden col-span-2 h-full overflow-hidden lg:block">
         <section className="p-10">
           <Heading.Light>OPTIONS</Heading.Light>
 
@@ -474,7 +494,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
         </section>
       </aside>
 
-      <div className="relative h-full min-h-0 lg:col-span-5">
+      <div className="relative h-full min-h-0 overflow-hidden border border-zinc-200 dark:border-zinc-700 bg-zinc-50/50 dark:bg-zinc-800/50 rounded-xl lg:col-span-5">
         <div
           aria-hidden="true"
           className="page-transition"
@@ -484,21 +504,15 @@ function ArticleRoot({ children }: ArticleRootProps) {
             {String(transitionLevel).padStart(2, '0')}
           </span>
         </div>
+
         <div
-          className="h-full touch-pan-y overflow-y-auto px-5 py-7 pb-36 sm:px-10 sm:py-10 sm:pb-44 lg:px-16"
+          className="h-full touch-pan-y overflow-y-auto px-5 py-7 pb-36 [scrollbar-width:none] sm:px-10 sm:py-10 sm:pb-44 lg:px-16 [&::-webkit-scrollbar]:hidden"
           onTouchCancel={() => {
             touchStart.current = null
           }}
           onTouchEnd={handleTouchEnd}
           onTouchStart={handleTouchStart}
         >
-          <div className="mb-7 flex items-center gap-4 lg:hidden">
-            <LevelBadge level={levelIndex + 1} />
-            <p className="line-clamp-2 text-xs sm:text-sm text-zinc-400 font-medium leading-5 -tracking-wider">
-              {title}
-            </p>
-          </div>
-
           <header>
             <h1 className="text-2xl font-semibold leading-tight -tracking-wide sm:text-3xl">
               {title}
@@ -612,11 +626,9 @@ function ArticleRoot({ children }: ArticleRootProps) {
       </div>
 
       <aside className="hidden col-span-3 h-full overflow-hidden lg:block pl-10">
-        <div className="flex h-32 items-center justify-between">
-          <strong className="text-xs tracking-widest text-zinc-400">
-            POSTS
-          </strong>
-          <WritePost />
+        <div className="mb-10 mt-14">
+          <Heading.Light>UPDATED NEWS</Heading.Light>
+          {/* <WritePost /> */}
         </div>
 
         <nav aria-label="Posts">

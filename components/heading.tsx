@@ -5,7 +5,7 @@ function Light({ className, ...props }: ComponentProps<'strong'>) {
   return (
     <strong
       className={cn(
-        'block text-[11px] tracking-widest text-zinc-400 dark:text-zinc-400',
+        'block text-[11px] tracking-widest font-medium text-zinc-400 dark:text-zinc-400',
         className,
       )}
       {...props}

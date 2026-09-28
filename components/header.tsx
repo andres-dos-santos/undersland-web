@@ -9,7 +9,7 @@ export async function Header() {
   const user = sessionCookie ? await getCurrentUser(sessionCookie) : null
 
   return (
-    <header className="flex h-14 sm:h-20 sm:border-b border-zinc-200 dark:border-zinc-800 w-full shrink-0 items-center justify-between pr-5 sm:pr-8 pl-2.5 sm:pl-5">
+    <header className="flex h-14 sm:h-20 border-zinc-200 dark:border-zinc-800 w-full shrink-0 items-center justify-between pr-5 sm:pr-8 pl-2.5 sm:pl-5">
       <Logo />
       <nav className="flex items-center gap-5">
         {user && (

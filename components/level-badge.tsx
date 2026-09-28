@@ -14,7 +14,7 @@ function LevelBadge({ className, level, ...props }: LevelBadgeProps) {
   return (
     <div
       className={cn(
-        'relative flex h-10 w-20 min-w-20 items-center justify-center gap-2.5 border border-zinc-300 dark:border-zinc-800',
+        'relative flex h-8 w-16 min-w-16 items-center justify-center gap-2.5 border border-zinc-300 dark:border-zinc-800',
         background,
         className,
       )}
@@ -36,8 +36,8 @@ function LevelBadge({ className, level, ...props }: LevelBadgeProps) {
         aria-hidden="true"
         className="absolute -bottom-px -right-px size-2 border-b-2 border-r-2 border-zinc-500 dark:border-white"
       />
-      <span className="text-sm font-medium text-zinc-700">LVL</span>
-      <span className="font-mono text-xl font-medium text-zinc-700">
+      <span className="text-xs font-medium text-zinc-700">LVL</span>
+      <span className="font-mono text-lg font-medium text-zinc-700">
         {level}
       </span>
     </div>

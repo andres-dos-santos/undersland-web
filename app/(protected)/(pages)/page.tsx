@@ -32,10 +32,7 @@ export default async function HomeContent() {
 
           <p className="text-zinc-400 text-sm dark:text-zinc-300/60">|</p>
 
-          <div
-            data-active={selectedTab === 'Books'}
-            className="text-zinc-400 flex items-center gap-2 text-sm cursor-not-allowed"
-          >
+          <div className="text-zinc-400 flex items-center gap-2 text-sm cursor-not-allowed">
             <p>Books</p>
             <Badge className="bg-orange-500">Coming soon</Badge>
           </div>
