@@ -186,7 +186,7 @@ export function AudioPlayer({ author, text, title }: AudioPlayerProps) {
               >
                 <HugeiconsIcon
                   icon={Download01Icon}
-                  className="size-3.5"
+                  className="size-3.5 cursor-not-allowed"
                   strokeWidth={2}
                 />
               </button>

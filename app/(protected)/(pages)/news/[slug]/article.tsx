@@ -319,22 +319,22 @@ function ArticleRoot({ children }: ArticleRootProps) {
         return
       }
 
-      if (event.key === 'ArrowUp') {
-        event.preventDefault()
-        increaseLevel()
-      }
-
-      if (event.key === 'ArrowDown') {
+      if (event.key === 'ArrowLeft') {
         event.preventDefault()
         decreaseLevel()
       }
 
-      if (event.key === 'ArrowLeft' && previousPostSlug) {
+      if (event.key === 'ArrowRight') {
+        event.preventDefault()
+        increaseLevel()
+      }
+
+      if (event.key === 'ArrowUp' && previousPostSlug) {
         event.preventDefault()
         router.push(`/news/${previousPostSlug}`)
       }
 
-      if (event.key === 'ArrowRight' && nextPostSlug) {
+      if (event.key === 'ArrowDown' && nextPostSlug) {
         event.preventDefault()
         router.push(`/news/${nextPostSlug}`)
       }
@@ -351,7 +351,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
         <div className="flex items-center gap-4 border-b border-zinc-200 px-10 h-32 dark:border-zinc-800">
           <LevelBadge level={levelIndex + 1} />
 
-          <p className="text-sm font-medium -tracking-wider line-clamp-2">
+          <p className="text-xs sm:text-sm font-medium text-zinc-400 -tracking-wider line-clamp-2">
             {title}
           </p>
         </div>
@@ -441,32 +441,32 @@ function ArticleRoot({ children }: ArticleRootProps) {
 
             <Command.Root>
               <Command.Key>
-                <HugeiconsIcon icon={ArrowUpIcon} size={14} strokeWidth={2} />
+                <HugeiconsIcon
+                  icon={ArrowRightIcon}
+                  size={14}
+                  strokeWidth={2}
+                />
               </Command.Key>
               <Command.Label>Increase level</Command.Label>
             </Command.Root>
 
             <Command.Root>
               <Command.Key>
-                <HugeiconsIcon icon={ArrowDownIcon} size={14} strokeWidth={2} />
+                <HugeiconsIcon icon={ArrowLeftIcon} size={14} strokeWidth={2} />
               </Command.Key>
               <Command.Label>Decrease level</Command.Label>
             </Command.Root>
 
             <Command.Root disabled={!previousPostSlug}>
               <Command.Key>
-                <HugeiconsIcon icon={ArrowLeftIcon} size={14} strokeWidth={2} />
+                <HugeiconsIcon icon={ArrowUpIcon} size={14} strokeWidth={2} />
               </Command.Key>
               <Command.Label>Previous post</Command.Label>
             </Command.Root>
 
             <Command.Root disabled={!nextPostSlug}>
               <Command.Key>
-                <HugeiconsIcon
-                  icon={ArrowRightIcon}
-                  size={14}
-                  strokeWidth={2}
-                />
+                <HugeiconsIcon icon={ArrowDownIcon} size={14} strokeWidth={2} />
               </Command.Key>
               <Command.Label>Next post</Command.Label>
             </Command.Root>
@@ -494,7 +494,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
         >
           <div className="mb-7 flex items-center gap-4 lg:hidden">
             <LevelBadge level={levelIndex + 1} />
-            <p className="line-clamp-2 text-sm font-medium leading-5 -tracking-wider">
+            <p className="line-clamp-2 text-xs sm:text-sm text-zinc-400 font-medium leading-5 -tracking-wider">
               {title}
             </p>
           </div>
@@ -536,7 +536,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
           </article>
 
           {links.length > 0 && (
-            <footer className="mt-10 border-t border-zinc-200 pt-10 dark:border-zinc-800">
+            <footer className="mt-10 border-t border-dashed border-zinc-200 pt-10 dark:border-zinc-800">
               <ol className="space-y-2">
                 {links.map((item, index) => (
                   <li className="flex items-start gap-2" key={item.link}>

@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans, Space_Mono, Instrument_Serif } from 'next/font/google'
+import { DM_Sans, Space_Mono, Instrument_Serif, Geist } from 'next/font/google'
 import { AuthFeedback } from '@/components/auth-feedback'
 import './globals.css'
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const sans = DM_Sans({
   variable: '--font-dm-sans',
@@ -45,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${mono.variable} ${title.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", sans.variable, mono.variable, title.variable, "font-sans", geist.variable)}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
