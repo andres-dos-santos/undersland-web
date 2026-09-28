@@ -1,21 +1,19 @@
 'use client'
 
 import {
-  AiTranslateIcon,
   ALargeSmall,
-  ArrowDownIcon,
-  ArrowLeft01FreeIcons,
-  ArrowLeft02FreeIcons,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  ArrowUpIcon,
-  HighlighterIcon,
-  ListMinusIcon,
-  ParagraphSpacingIcon,
-  Settings01Icon,
-  Target03FreeIcons,
-} from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  ChevronDown,
+  Focus,
+  Highlighter,
+  Languages,
+  ListMinus,
+  Rows3,
+  Settings,
+} from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
@@ -39,8 +37,8 @@ import {
   DrawerDescription,
   DrawerTitle,
 } from '@/components/ui/drawer'
-import { WritePost } from '@/components/write-post'
 import { AudioPlayer } from './audio-player'
+import { Logo } from '@/components/logo'
 
 type ArticleMetadataProps = {
   author: string
@@ -84,6 +82,7 @@ type ArticleRootProps = {
 }
 
 type LevelTransitionPhase = 'idle' | 'covering' | 'revealing'
+type LevelTransitionDirection = 'left' | 'right'
 
 const LEVEL_TRANSITION_COVER_DURATION = 450
 const LEVEL_TRANSITION_REVEAL_DURATION = 550
@@ -188,6 +187,8 @@ function ArticleRoot({ children }: ArticleRootProps) {
   const [levelIndex, setLevelIndex] = useState(0)
   const [levelTransitionPhase, setLevelTransitionPhase] =
     useState<LevelTransitionPhase>('idle')
+  const [levelTransitionDirection, setLevelTransitionDirection] =
+    useState<LevelTransitionDirection>('right')
   const [transitionLevel, setTransitionLevel] = useState(1)
   const [highlightWords, setHighlightWords] = useState(false)
   const [smallText, setSmallText] = useState(false)
@@ -221,6 +222,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
       }
 
       levelTransitionPhaseRef.current = 'covering'
+      setLevelTransitionDirection(direction === 1 ? 'right' : 'left')
       setTransitionLevel(nextLevel + 1)
       setLevelTransitionPhase('covering')
 
@@ -348,44 +350,39 @@ function ArticleRoot({ children }: ArticleRootProps) {
   }, [decreaseLevel, increaseLevel, nextPostSlug, previousPostSlug, router])
 
   return (
-    <div className="grid h-full min-h-0 grid-cols-1 grid-rows-[3.5rem_minmax(0,1fr)] overflow-hidden lg:grid-cols-10 px-2.5 lg:px-0">
-      <header className="h-14 lg:grid grid-cols-10 col-span-10 w-full">
-        <div className="col-span-2"></div>
-        <div className="col-span-5 h-full grid grid-cols-11">
-          <Link className="flex items-center col-span-3 gap-1.5" href="/">
-            <HugeiconsIcon
-              icon={ArrowLeft02FreeIcons}
-              className="size-4"
-              strokeWidth={1.5}
-            />
-            <p className="text-zinc-400 hover:text-zinc-900 text-[13px] dark:text-zinc-300/60 dark:hover:text-white">
-              Home
-            </p>
-          </Link>
+    <div className="grid h-full min-h-0 grid-cols-1 grid-rows-[3.5rem_minmax(0,1fr)] overflow-hidden px-2.5 lg:grid-cols-10 lg:grid-rows-[3.5rem_minmax(0,1fr)_3.5rem] lg:px-0">
+      <header className="col-span-1 h-14 w-full lg:col-span-10 lg:grid lg:grid-cols-10">
+        <Link
+          href="/"
+          className="group relative col-span-2 hidden items-center border-b border-dashed border-zinc-300 px-5 dark:border-zinc-700 lg:flex"
+        >
+          <Logo className="size-10" />
+          <p className="line-clamp-1 text-xs font-medium -tracking-wider text-zinc-400 group-hover:text-zinc-900 dark:text-zinc-500 dark:group-hover:text-zinc-100">
+            UNDERSTAND
+          </p>
 
-          <div className="flex items-center justify-center col-span-5 gap-2.5">
+          <ChevronDown className="group-hover:opacity-100 opacity-0 transition-all duration-150 -rotate-[135deg] size-2.5 absolute top-0.5 right-0.5" />
+        </Link>
+
+        <div className="col-span-5 flex h-full items-center justify-center border-b border-dashed border-zinc-300 dark:border-zinc-700 lg:border-x lg:border-b-0">
+          <div className="flex items-center justify-center gap-2.5">
             <LevelBadge level={levelIndex + 1} />
             <p className="text-xs max-w-1/2 font-medium text-zinc-400 -tracking-wider line-clamp-1">
               {title}
             </p>
           </div>
-
-          <div className="col-span-3"></div>
         </div>
-        <div className="col-span-3"></div>
+
+        <div className="col-span-3 hidden border-b border-dashed border-zinc-300 dark:border-zinc-700 lg:block"></div>
       </header>
 
       <aside className="hidden col-span-2 h-full overflow-hidden lg:block">
         <section className="p-10">
-          <Heading.Light>OPTIONS</Heading.Light>
+          <Heading.Light>OPTIONS [ 4 ]</Heading.Light>
 
           <div className="gap-7 flex flex-col mt-10">
             <Toggle.Root id="small-text">
-              <Toggle.Label
-                icon={
-                  <HugeiconsIcon icon={ALargeSmall} strokeWidth={1} size={20} />
-                }
-              >
+              <Toggle.Label icon={<ALargeSmall size={20} strokeWidth={1.5} />}>
                 Small Text
               </Toggle.Label>
               <Toggle.Switch
@@ -395,15 +392,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
             </Toggle.Root>
 
             <Toggle.Root id="line-spacing">
-              <Toggle.Label
-                icon={
-                  <HugeiconsIcon
-                    icon={ParagraphSpacingIcon}
-                    strokeWidth={1}
-                    size={20}
-                  />
-                }
-              >
+              <Toggle.Label icon={<Rows3 size={20} strokeWidth={1.5} />}>
                 Line Spacing
               </Toggle.Label>
               <Toggle.Switch
@@ -413,30 +402,14 @@ function ArticleRoot({ children }: ArticleRootProps) {
             </Toggle.Root>
 
             <Toggle.Root id="show-translate">
-              <Toggle.Label
-                icon={
-                  <HugeiconsIcon
-                    icon={AiTranslateIcon}
-                    strokeWidth={1}
-                    size={20}
-                  />
-                }
-              >
+              <Toggle.Label icon={<Languages size={20} strokeWidth={1.5} />}>
                 Show Translate
               </Toggle.Label>
               <Toggle.Switch />
             </Toggle.Root>
 
             <Toggle.Root id="highlight-difficult-words">
-              <Toggle.Label
-                icon={
-                  <HugeiconsIcon
-                    icon={HighlighterIcon}
-                    strokeWidth={1}
-                    size={20}
-                  />
-                }
-              >
+              <Toggle.Label icon={<Highlighter size={20} strokeWidth={1.5} />}>
                 Highlight
               </Toggle.Label>
               <Toggle.Switch
@@ -446,7 +419,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
             </Toggle.Root>
           </div>
 
-          <Heading.Light className="mb-10 mt-14">COMMANDS</Heading.Light>
+          <Heading.Light className="mb-10 mt-14">COMMANDS [ 6 ]</Heading.Light>
 
           <div className="flex flex-col gap-4">
             <Command.Root>
@@ -461,32 +434,28 @@ function ArticleRoot({ children }: ArticleRootProps) {
 
             <Command.Root>
               <Command.Key>
-                <HugeiconsIcon
-                  icon={ArrowRightIcon}
-                  size={14}
-                  strokeWidth={2}
-                />
+                <ArrowRight size={14} strokeWidth={2} />
               </Command.Key>
               <Command.Label>Increase level</Command.Label>
             </Command.Root>
 
             <Command.Root>
               <Command.Key>
-                <HugeiconsIcon icon={ArrowLeftIcon} size={14} strokeWidth={2} />
+                <ArrowLeft size={14} strokeWidth={2} />
               </Command.Key>
               <Command.Label>Decrease level</Command.Label>
             </Command.Root>
 
             <Command.Root disabled={!previousPostSlug}>
               <Command.Key>
-                <HugeiconsIcon icon={ArrowUpIcon} size={14} strokeWidth={2} />
+                <ArrowUp size={14} strokeWidth={2} />
               </Command.Key>
               <Command.Label>Previous post</Command.Label>
             </Command.Root>
 
             <Command.Root disabled={!nextPostSlug}>
               <Command.Key>
-                <HugeiconsIcon icon={ArrowDownIcon} size={14} strokeWidth={2} />
+                <ArrowDown size={14} strokeWidth={2} />
               </Command.Key>
               <Command.Label>Next post</Command.Label>
             </Command.Root>
@@ -494,140 +463,156 @@ function ArticleRoot({ children }: ArticleRootProps) {
         </section>
       </aside>
 
-      <div className="relative h-full min-h-0 overflow-hidden lg:border border-zinc-200 dark:border-zinc-700 lg:bg-zinc-50/50 lg:dark:bg-zinc-800/50 rounded-xl lg:col-span-5">
-        <div
-          aria-hidden="true"
-          className="page-transition"
-          data-phase={levelTransitionPhase}
-        >
-          <span className="page-transition-level text-zinc-500 dark:text-zinc-400">
-            {String(transitionLevel).padStart(2, '0')}
-          </span>
-        </div>
-
-        <div
-          className="h-full touch-pan-y overflow-y-auto px-2.5 py-7 pb-36 [scrollbar-width:none] sm:px-10 sm:py-10 sm:pb-44 lg:px-16 [&::-webkit-scrollbar]:hidden"
-          onTouchCancel={() => {
-            touchStart.current = null
-          }}
-          onTouchEnd={handleTouchEnd}
-          onTouchStart={handleTouchStart}
-        >
-          <header>
-            <h1 className="text-2xl font-semibold leading-tight -tracking-wide sm:text-3xl">
-              {title}
-            </h1>
-          </header>
-
-          <span className="mt-2.5 block text-[11px] font-semibold tracking-widest text-zinc-400 uppercase">
-            {date} by {author}
-          </span>
-
-          <article
-            aria-live="polite"
-            className={`prose prose-zinc mt-2.5 max-w-none text-zinc-600 dark:prose-invert prose-h2:text-lg dark:text-white ${
-              smallText
-                ? 'prose-p:text-xs prose-li:text-xs'
-                : 'prose-p:text-sm prose-li:text-sm'
-            } ${
-              lineSpacing
-                ? 'prose-p:leading-8 prose-li:leading-8'
-                : 'prose-p:leading-6 prose-li:leading-6'
-            }`}
+      <div className="relative h-full min-h-0 lg:col-span-5">
+        <div className="relative h-full min-h-0 overflow-hidden border-dashed lg:border border-zinc-300 dark:border-zinc-700">
+          <div
+            aria-hidden="true"
+            className="page-transition"
+            data-direction={levelTransitionDirection}
+            data-phase={levelTransitionPhase}
           >
-            <div
-              className="mt-10"
-              // biome-ignore lint/security/noDangerouslySetInnerHtml: Post HTML is supplied by the trusted API and sanitized there.
-              dangerouslySetInnerHTML={{
-                __html: highlightWords
-                  ? highlightDifficultWords(
-                      addParagraphs(levels[levelIndex] ?? ''),
-                      difficultWords[levelIndex] ?? [],
-                    )
-                  : addParagraphs(levels[levelIndex] ?? ''),
-              }}
-            />
-          </article>
+            <span className="page-transition-level text-zinc-500 dark:text-zinc-400">
+              {String(transitionLevel).padStart(2, '0')}
+            </span>
+          </div>
 
-          {links.length > 0 && (
-            <footer className="mt-10 border-t border-dashed border-zinc-200 pt-10 dark:border-zinc-800">
-              <ol className="space-y-2">
-                {links.map((item, index) => (
-                  <li className="flex items-start gap-2" key={item.link}>
-                    <span className="mt-0.5 text-[10px] font-semibold text-zinc-400 dark:text-zinc-600">
-                      {index + 1}
-                    </span>
-                    <a
-                      className="text-xs text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-                      href={item.link}
-                      rel="noreferrer"
-                      target="_blank"
-                    >
-                      {item.text}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </footer>
-          )}
-        </div>
+          <div
+            className="h-full touch-pan-y overflow-y-auto px-2.5 py-7 pb-36 [scrollbar-width:none] sm:px-10 sm:py-10 sm:pb-44 lg:px-16 lg:pb-10 [&::-webkit-scrollbar]:hidden"
+            onTouchCancel={() => {
+              touchStart.current = null
+            }}
+            onTouchEnd={handleTouchEnd}
+            onTouchStart={handleTouchStart}
+          >
+            <header>
+              <h1 className="text-2xl font-semibold leading-tight -tracking-wide sm:text-3xl">
+                {title}
+              </h1>
+            </header>
 
-        <div className="absolute inset-x-0 bottom-0 z-40 flex min-h-28 w-full items-center justify-center px-5 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:min-h-32 sm:px-10 sm:py-4 lg:px-16">
-          <div className="flex items-center gap-2.5 rounded-2xl backdrop-blur-sm border border-zinc-200 p-2 dark:border-zinc-800 bg-background/65">
-            <div className="justify-self-start">
-              <AudioPlayer
-                author={author}
-                key={levelIndex}
-                text={stripHtml(levels[levelIndex] ?? '')}
-                title={title}
+            <span className="mt-2.5 block text-[11px] font-semibold tracking-widest text-zinc-400 uppercase">
+              {date} by {author}
+            </span>
+
+            <article
+              aria-live="polite"
+              className={`prose prose-zinc mt-2.5 max-w-none text-zinc-600 dark:prose-invert prose-h2:text-lg dark:text-white ${
+                smallText
+                  ? 'prose-p:text-xs prose-li:text-xs'
+                  : 'prose-p:text-sm prose-li:text-sm'
+              } ${
+                lineSpacing
+                  ? 'prose-p:leading-8 prose-li:leading-8'
+                  : 'prose-p:leading-6 prose-li:leading-6'
+              }`}
+            >
+              <div
+                className="mt-10"
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: Post HTML is supplied by the trusted API and sanitized there.
+                dangerouslySetInnerHTML={{
+                  __html: highlightWords
+                    ? highlightDifficultWords(
+                        addParagraphs(levels[levelIndex] ?? ''),
+                        difficultWords[levelIndex] ?? [],
+                      )
+                    : addParagraphs(levels[levelIndex] ?? ''),
+                }}
               />
+            </article>
+
+            {links.length > 0 && (
+              <footer className="mt-10 border-t border-dashed border-zinc-200 pt-10 dark:border-zinc-800">
+                <ol className="space-y-2">
+                  {links.map((item, index) => (
+                    <li className="flex items-start gap-2" key={item.link}>
+                      <span className="mt-0.5 text-[10px] font-semibold text-zinc-400 dark:text-zinc-600">
+                        {index + 1}
+                      </span>
+                      <a
+                        className="text-xs text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                        href={item.link}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {item.text}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </footer>
+            )}
+          </div>
+
+          <div className="absolute inset-x-0 bottom-0 z-40 flex w-full items-end justify-center px-5 pt-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:min-h-32 sm:items-center sm:px-10 sm:py-4 lg:hidden">
+            <div className="flex items-center gap-2.5 rounded-2xl backdrop-blur-sm border border-zinc-300 p-2 dark:border-zinc-700 bg-background/65">
+              <div className="justify-self-start">
+                <AudioPlayer
+                  author={author}
+                  key={levelIndex}
+                  text={stripHtml(levels[levelIndex] ?? '')}
+                  title={title}
+                />
+              </div>
+
+              <button
+                aria-label="Open focus mode"
+                className="group hidden sm:flex size-12 items-center justify-center justify-self-end rounded-xl border border-zinc-400 bg-white shadow-sm transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900/20 dark:hover:bg-zinc-800"
+                onClick={() => setFocusModeOpen(true)}
+                type="button"
+              >
+                <Focus
+                  className="size-4 text-black dark:text-white"
+                  strokeWidth={2}
+                />
+              </button>
+
+              <button
+                aria-label="Show posts"
+                className="group flex size-12 items-center justify-center rounded-xl border border-zinc-400 bg-white shadow-sm transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900/20 dark:hover:bg-zinc-800 lg:hidden"
+                onClick={() => setPostsOpen(true)}
+                type="button"
+              >
+                <ListMinus
+                  className="size-4 text-black dark:text-white"
+                  strokeWidth={2}
+                />
+              </button>
+
+              <button
+                aria-label="Open reading options"
+                className="group flex size-12 items-center justify-center rounded-xl border border-zinc-400 bg-white shadow-sm transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900/20 dark:hover:bg-zinc-800 lg:hidden"
+                onClick={() => setOptionsOpen(true)}
+                type="button"
+              >
+                <Settings
+                  className="size-4 text-black dark:text-white"
+                  strokeWidth={2}
+                />
+              </button>
             </div>
-
-            <button
-              aria-label="Open focus mode"
-              className="group hidden sm:flex size-12 items-center justify-center justify-self-end rounded-xl border border-zinc-400 bg-white shadow-sm transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900/20 dark:hover:bg-zinc-800"
-              onClick={() => setFocusModeOpen(true)}
-              type="button"
-            >
-              <HugeiconsIcon
-                icon={Target03FreeIcons}
-                strokeWidth={2}
-                className="size-4 text-black dark:text-white"
-              />
-            </button>
-
-            <button
-              aria-label="Show posts"
-              className="group flex size-12 items-center justify-center rounded-xl border border-zinc-400 bg-white shadow-sm transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900/20 dark:hover:bg-zinc-800 lg:hidden"
-              onClick={() => setPostsOpen(true)}
-              type="button"
-            >
-              <HugeiconsIcon
-                icon={ListMinusIcon}
-                strokeWidth={2}
-                className="size-4 text-black dark:text-white"
-              />
-            </button>
-
-            <button
-              aria-label="Open reading options"
-              className="group flex size-12 items-center justify-center rounded-xl border border-zinc-400 bg-white shadow-sm transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900/20 dark:hover:bg-zinc-800 lg:hidden"
-              onClick={() => setOptionsOpen(true)}
-              type="button"
-            >
-              <HugeiconsIcon
-                icon={Settings01Icon}
-                strokeWidth={2}
-                className="size-4 text-black dark:text-white"
-              />
-            </button>
           </div>
         </div>
+
+        {[
+          '-left-2.5 -top-2.5',
+          '-right-2.5 -top-2.5',
+          '-bottom-2.5 -left-2.5',
+          '-bottom-2.5 -right-2.5',
+        ].map((position) => (
+          <span
+            aria-hidden="true"
+            className={`pointer-events-none absolute z-50 hidden size-5 bg-background text-zinc-500 lg:block dark:text-zinc-400 ${position}`}
+            key={position}
+          >
+            <span className="absolute left-1/2 top-1/2 h-px w-2.5 -translate-x-1/2 -translate-y-1/2 bg-current" />
+            <span className="absolute left-1/2 top-1/2 h-2.5 w-px -translate-x-1/2 -translate-y-1/2 bg-current" />
+          </span>
+        ))}
       </div>
 
       <aside className="hidden col-span-3 h-full overflow-hidden lg:block pl-10">
         <div className="mb-10 mt-14">
-          <Heading.Light>UPDATED NEWS</Heading.Light>
+          <Heading.Light>UPDATED NEWS [ {posts.length} ]</Heading.Light>
           {/* <WritePost /> */}
         </div>
 
@@ -643,7 +628,10 @@ function ArticleRoot({ children }: ArticleRootProps) {
                     className="group relative grid grid-cols-[2rem_1fr] gap-3 py-3 transition-colors"
                     href={`/news/${post.slug}`}
                   >
-                    <span className="font-mono text-xs text-zinc-400 mt-0.5">
+                    <span
+                      data-current={isCurrentPost}
+                      className="data-[current=true]:text-orange-500 font-mono text-xs text-zinc-400 mt-0.5"
+                    >
                       {String(index + 1).padStart(2, '0')}
                     </span>
                     <span
@@ -662,6 +650,21 @@ function ArticleRoot({ children }: ArticleRootProps) {
           </ul>
         </nav>
       </aside>
+
+      <footer className="hidden h-14 w-full grid-cols-10 lg:col-span-10 lg:grid">
+        <div className="col-span-2 border-t border-dashed border-zinc-300 dark:border-zinc-700"></div>
+
+        <div className="relative col-span-5 flex h-full items-center justify-center border-x border-dashed border-zinc-300 dark:border-zinc-700">
+          <p className="text-xs font-medium text-zinc-400 -tracking-wider line-clamp-1">
+            Architected and built by Andres • Help keep{' '}
+            <strong className="font-medium text-orange-500">
+              this project alive
+            </strong>
+          </p>
+        </div>
+
+        <div className="col-span-3 border-t border-dashed border-zinc-300 dark:border-zinc-700"></div>
+      </footer>
 
       <Dialog open={focusModeOpen} onOpenChange={setFocusModeOpen}>
         <DialogContent className="max-h-[calc(100dvh-4rem)] overflow-y-auto">
@@ -750,13 +753,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
               <Toggle.Root id="mobile-small-text">
                 <Toggle.Label
                   className="gap-4 text-sm"
-                  icon={
-                    <HugeiconsIcon
-                      icon={ALargeSmall}
-                      strokeWidth={1}
-                      size={20}
-                    />
-                  }
+                  icon={<ALargeSmall size={20} strokeWidth={1.5} />}
                 >
                   Small Text
                 </Toggle.Label>
@@ -769,13 +766,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
               <Toggle.Root id="mobile-line-spacing">
                 <Toggle.Label
                   className="gap-4 text-sm"
-                  icon={
-                    <HugeiconsIcon
-                      icon={ParagraphSpacingIcon}
-                      strokeWidth={1}
-                      size={20}
-                    />
-                  }
+                  icon={<Rows3 size={20} strokeWidth={1.5} />}
                 >
                   Line Spacing
                 </Toggle.Label>
@@ -788,13 +779,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
               <Toggle.Root id="mobile-show-translate">
                 <Toggle.Label
                   className="gap-4 text-sm"
-                  icon={
-                    <HugeiconsIcon
-                      icon={AiTranslateIcon}
-                      strokeWidth={1}
-                      size={20}
-                    />
-                  }
+                  icon={<Languages size={20} strokeWidth={1.5} />}
                 >
                   Show Translate
                 </Toggle.Label>
@@ -804,13 +789,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
               <Toggle.Root id="mobile-highlight-difficult-words">
                 <Toggle.Label
                   className="gap-4 text-sm"
-                  icon={
-                    <HugeiconsIcon
-                      icon={HighlighterIcon}
-                      strokeWidth={1}
-                      size={20}
-                    />
-                  }
+                  icon={<Highlighter size={20} strokeWidth={1.5} />}
                 >
                   Highlight Difficult Words
                 </Toggle.Label>

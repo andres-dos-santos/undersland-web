@@ -10,7 +10,7 @@ function Root({ className, disabled, ...props }: RootProps) {
     <div
       aria-disabled={disabled || undefined}
       className={cn(
-        'flex items-center gap-5',
+        'flex items-center gap-4',
         disabled && 'opacity-35',
         className,
       )}
@@ -23,7 +23,7 @@ function Key({ className, ...props }: ComponentProps<'kbd'>) {
   return (
     <kbd
       className={cn(
-        'flex size-7 items-center justify-center rounded-md border border-zinc-400 font-mono text-xs text-zinc-500 shadow-sm dark:border-zinc-700 dark:text-zinc-400',
+        'flex size-7 items-center justify-center rounded-[3px] border border-zinc-400 font-mono text-xs text-zinc-500 shadow-sm dark:border-zinc-700 dark:text-zinc-400',
         className,
       )}
       {...props}

@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from 'next'
 import { DM_Sans, Space_Mono, Instrument_Serif, Geist } from 'next/font/google'
+import Script from 'next/script'
 import { AuthFeedback } from '@/components/auth-feedback'
 import './globals.css'
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' })
 
 const sans = DM_Sans({
   variable: '--font-dm-sans',
@@ -41,16 +42,51 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#18181b' },
+  ],
 }
+
+const themeScript = `
+  (() => {
+    const root = document.documentElement;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const applyTheme = () => {
+      const savedTheme = localStorage.getItem('theme');
+      const isDark = savedTheme === 'dark' || (savedTheme === null && media.matches);
+
+      root.classList.toggle('dark', isDark);
+      root.style.colorScheme = isDark ? 'dark' : 'light';
+    };
+
+    applyTheme();
+    media.addEventListener('change', applyTheme);
+  })();
+`
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", sans.variable, mono.variable, title.variable, "font-sans", geist.variable)}
+      className={cn(
+        'h-full',
+        'antialiased',
+        sans.variable,
+        mono.variable,
+        title.variable,
+        'font-sans',
+        geist.variable,
+      )}
       suppressHydrationWarning
     >
+      <head>
+        <Script id="theme-initializer" strategy="beforeInteractive">
+          {themeScript}
+        </Script>
+      </head>
       <body className="min-h-full flex flex-col">
         {children}
         <AuthFeedback />

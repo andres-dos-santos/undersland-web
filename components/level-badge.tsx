@@ -5,7 +5,11 @@ type LevelBadgeProps = Omit<ComponentProps<'div'>, 'children'> & {
   level: number
 }
 
-const levelBackgrounds = ['bg-emerald-200', 'bg-amber-200', 'bg-red-200']
+const levelBackgrounds = [
+  'bg-emerald-200 dark:bg-emerald-800',
+  'bg-amber-200 dark:bg-amber-800',
+  'bg-red-200 dark:bg-red-800',
+]
 
 function LevelBadge({ className, level, ...props }: LevelBadgeProps) {
   const background =
@@ -36,8 +40,10 @@ function LevelBadge({ className, level, ...props }: LevelBadgeProps) {
         aria-hidden="true"
         className="absolute -bottom-px -right-px size-2 border-b-2 border-r-2 border-zinc-500 dark:border-white"
       />
-      <span className="text-xs font-medium text-zinc-700">LVL</span>
-      <span className="font-mono text-lg font-medium text-zinc-700">
+      <span className="text-xs font-medium text-zinc-700 dark:text-zinc-100">
+        LVL
+      </span>
+      <span className="font-mono text-lg font-medium text-zinc-700 dark:text-zinc-100">
         {level}
       </span>
     </div>
