@@ -31,7 +31,7 @@ export default async function ProfilePage() {
 
       <div className="mt-20">
         <Heading.Light>SETTINGS</Heading.Light>
-        <div className="mt-5 divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+        <div className="divide-content-border border-content-border mt-5 divide-y border-y">
           <div className="flex min-h-16 items-center justify-between gap-5 py-3">
             <span className="text-sm text-zinc-500 dark:text-zinc-500 font-medium">
               Theme

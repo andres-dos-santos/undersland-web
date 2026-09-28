@@ -10,13 +10,10 @@ export function News({ news }: Props) {
   const validNews = news.filter((item) => item?.data?.slug)
 
   return (
-    <ul className="mt-10">
+    <ul>
       {validNews.map((item) => (
         <li key={item.id}>
-          <Link
-            href={`/news/${item.data.slug}`}
-            className="group block border-b border-zinc-200 py-10 dark:border-zinc-800"
-          >
+          <Link href={`/news/${item.data.slug}`} className="group block py-10">
             <h2 className="font-medium text-sm text-zinc-900 dark:text-zinc-100">
               {item.data.title}
             </h2>

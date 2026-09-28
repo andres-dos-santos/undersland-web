@@ -19,7 +19,7 @@ const title = Instrument_Serif({
 })
 
 const mono = Space_Mono({
-  variable: '--font-space-mono',
+  variable: '--font-mono',
   subsets: ['latin'],
   weight: ['400', '700'],
 })

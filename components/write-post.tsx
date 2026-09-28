@@ -14,7 +14,6 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 
 const NEW_POST_URL =
@@ -158,7 +157,7 @@ export function WritePost() {
           <ol className="mt-8">
             {instructions.map((instruction, index) => (
               <li
-                className="border-zinc-200 border-b py-6 first:pt-0 last:border-b-0 last:pb-0 dark:border-zinc-800"
+                className="border-content-border border-b py-6 first:pt-0 last:border-b-0 last:pb-0"
                 key={instruction.title}
               >
                 <span className="font-mono text-xs text-zinc-400 dark:text-zinc-600">
@@ -223,7 +222,7 @@ export function WritePost() {
             ))}
           </ol>
 
-          <div className="mt-8 flex flex-col gap-3 border-zinc-200 border-t pt-6 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-800">
+          <div className="border-content-border mt-8 flex flex-col gap-3 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
               GitHub will open the filled issue for your final confirmation.
             </p>

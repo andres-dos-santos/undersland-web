@@ -1,17 +1,25 @@
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { getCurrentUser } from '@/model/user'
-import { ThemeToggle } from './theme-toggle'
 import { Logo } from './logo'
+import { MobileTopics } from './mobile-topics'
 
 export async function Header() {
   const sessionCookie = (await cookies()).get('understand-session')?.value
   const user = sessionCookie ? await getCurrentUser(sessionCookie) : null
 
   return (
-    <header className="flex h-14 sm:h-20 border-zinc-200 dark:border-zinc-800 w-full shrink-0 items-center justify-between pr-5 sm:pr-8 pl-2.5 sm:pl-5">
-      <Logo />
-      <nav className="flex items-center gap-5">
+    <header className="border-content-border flex h-10 w-full shrink-0 items-center justify-between border-b-0 pl-2.5 pr-5 sm:h-14 sm:pl-5 sm:pr-8 lg:border-b">
+      <Logo className="size-10" />
+
+      <div className="flex h-7 px-10 items-center justify-center bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600">
+        <p className="text-[11px] font-semibold tracking-wider text-zinc-900 uppercase">
+          This version is in the testing phase and is subject to errors.
+        </p>
+      </div>
+
+      <div className="flex items-center gap-5">
+        <MobileTopics />
         {user && (
           <Link
             href="/profile"
@@ -31,7 +39,7 @@ export async function Header() {
             )}
           </Link>
         )}
-      </nav>
+      </div>
     </header>
   )
 }

@@ -5,7 +5,6 @@ import {
   Download01Icon,
   FastForwardIcon,
   PauseIcon,
-  Play,
   PlayIcon,
   Timer,
 } from '@hugeicons/core-free-icons'
@@ -137,7 +136,7 @@ export function AudioPlayer({ author, text, title }: AudioPlayerProps) {
         />
       </DrawerTrigger>
 
-      <DrawerContent className="overflow-visible border-zinc-200 border-t bg-white shadow-[0_-16px_50px_rgba(24,24,27,0.08)] before:pointer-events-none before:absolute before:inset-x-0 before:-top-40 before:h-40 before:bg-[linear-gradient(to_bottom,transparent,#ffffff)] before:content-[''] dark:border-zinc-800 dark:bg-[linear-gradient(to_bottom,#111113_0%,#0d0d0f_32%,#09090b_68%,#09090b_100%)] dark:shadow-none dark:before:bg-[linear-gradient(to_bottom,transparent,#111113)]">
+      <DrawerContent className="border-content-border overflow-visible border-t bg-white shadow-[0_-16px_50px_rgba(24,24,27,0.08)] before:pointer-events-none before:absolute before:inset-x-0 before:-top-40 before:h-40 before:bg-[linear-gradient(to_bottom,transparent,#ffffff)] before:content-[''] dark:bg-[linear-gradient(to_bottom,#111113_0%,#0d0d0f_32%,#09090b_68%,#09090b_100%)] dark:shadow-none dark:before:bg-[linear-gradient(to_bottom,transparent,#111113)]">
         <div className="grid grid-cols-10">
           <div className="col-span-10 px-5 pb-8 pt-6 sm:px-10 sm:pb-10 sm:pt-8 lg:col-span-5 lg:col-start-3 lg:px-16">
             <div className="flex items-center gap-4 sm:gap-6">

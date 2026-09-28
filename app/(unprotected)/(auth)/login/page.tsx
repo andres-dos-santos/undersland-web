@@ -1,11 +1,8 @@
 import { ArrowUpRight01Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
-import * as Field from '@/components/field'
 import { Logo } from '@/components/logo'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
+import { ThemeToggle } from '@/components/theme-toggle'
 import Image from 'next/image'
-import Link from 'next/link'
 
 function GoogleLogo({ className }: { className?: string }) {
   return (
@@ -32,7 +29,7 @@ function GoogleLogo({ className }: { className?: string }) {
 
 export default function LoginPage() {
   return (
-    <main className="min-h-dvh p-0 text-zinc-950">
+    <main className="min-h-dvh bg-white p-0 text-zinc-950 transition-colors dark:bg-zinc-950 dark:text-zinc-50">
       <div className="mx-auto grid min-h-dvh max-w-[1800px] overflow-hidden lg:min-h-[calc(100dvh)] lg:grid-cols-[1.08fr_0.92fr] lg:rounded-[0.5rem]">
         <section className="relative min-h-56 overflow-hidden bg-zinc-900 sm:min-h-72 lg:min-h-0">
           <Image
@@ -53,7 +50,7 @@ export default function LoginPage() {
             <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.28em] text-white/60">
               A living library
             </p>
-            <h2 className="max-w-xl font-title text-2xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
+            <h2 className="max-w-xl text-2xl font-semibold leading-tight -tracking-widest sm:text-4xl lg:text-5xl">
               Turn every story into a new way to understand English.
             </h2>
             <a
@@ -72,16 +69,16 @@ export default function LoginPage() {
           </div>
         </section>
 
-        <section className="flex items-center justify-center px-6 py-12 sm:px-12 lg:px-16 xl:px-24">
+        <section className="relative flex items-center justify-center bg-white px-6 py-12 transition-colors dark:bg-zinc-950 sm:px-12 lg:px-16 xl:px-24">
           <div className="w-full max-w-sm">
             <div className="mb-10">
-              <p className="mb-3 font-mono text-xs uppercase tracking-[0.24em] text-zinc-500">
+              <p className="mb-3 font-mono text-xs uppercase tracking-[0.24em] text-zinc-500 dark:text-zinc-400">
                 Welcome back
               </p>
-              <h1 className="text-3xl font-title tracking-[-0.05em] sm:text-6xl">
+              <h1 className="text-3xl tracking-[-0.05em] text-zinc-950 dark:text-zinc-50 sm:text-4xl">
                 Continue your journey.
               </h1>
-              <p className="mt-4 max-w-sm text-[13px] leading-6 text-zinc-500 sm:text-sm">
+              <p className="mt-4 max-w-sm text-[13px] leading-6 text-zinc-500 dark:text-zinc-400 sm:text-sm">
                 Sign in to pick up where you left off and keep every new word
                 within reach.
               </p>
@@ -122,7 +119,7 @@ export default function LoginPage() {
               <a
                 href={`${process.env.NEXT_PUBLIC_API_URL}/sign-up`}
                 data-google-auth
-                className="inline-flex h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md border border-zinc-300 bg-white text-sm font-medium -tracking-wider text-zinc-950 outline-none transition hover:bg-zinc-50 focus-visible:ring-4 focus-visible:ring-zinc-950/20"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md border border-zinc-300 bg-white text-sm font-medium -tracking-wider text-zinc-950 outline-none transition hover:bg-zinc-50 focus-visible:ring-4 focus-visible:ring-zinc-950/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:hover:border-zinc-600 dark:hover:bg-zinc-800 dark:focus-visible:ring-white/20"
               >
                 <GoogleLogo className="size-5" />
                 Continue with Google

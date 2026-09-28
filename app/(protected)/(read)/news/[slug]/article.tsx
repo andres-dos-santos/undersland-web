@@ -39,6 +39,7 @@ import {
 } from '@/components/ui/drawer'
 import { AudioPlayer } from './audio-player'
 import { Logo } from '@/components/logo'
+import { UpdatedNews } from '@/components/updated-news'
 
 type ArticleMetadataProps = {
   author: string
@@ -354,17 +355,17 @@ function ArticleRoot({ children }: ArticleRootProps) {
       <header className="col-span-1 h-14 w-full lg:col-span-10 lg:grid lg:grid-cols-10">
         <Link
           href="/"
-          className="group relative col-span-2 hidden items-center border-b border-dashed border-zinc-300 px-5 dark:border-zinc-700 lg:flex"
+          className="border-content-border group relative col-span-2 hidden items-center border-b px-5 lg:flex"
         >
           <Logo className="size-10" />
           <p className="line-clamp-1 text-xs font-medium -tracking-wider text-zinc-400 group-hover:text-zinc-900 dark:text-zinc-500 dark:group-hover:text-zinc-100">
-            UNDERSTAND
+            UNDERSLAND
           </p>
 
           <ChevronDown className="group-hover:opacity-100 opacity-0 transition-all duration-150 -rotate-[135deg] size-2.5 absolute top-0.5 right-0.5" />
         </Link>
 
-        <div className="col-span-5 flex h-full items-center justify-center border-b border-dashed border-zinc-300 dark:border-zinc-700 lg:border-x lg:border-b-0">
+        <div className="border-content-border col-span-5 flex h-full items-center justify-center border-b lg:border-x lg:border-b-0">
           <div className="flex items-center justify-center gap-2.5">
             <LevelBadge level={levelIndex + 1} />
             <p className="text-xs max-w-1/2 font-medium text-zinc-400 -tracking-wider line-clamp-1">
@@ -373,7 +374,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
           </div>
         </div>
 
-        <div className="col-span-3 hidden border-b border-dashed border-zinc-300 dark:border-zinc-700 lg:block"></div>
+        <div className="border-content-border col-span-3 hidden border-b lg:block"></div>
       </header>
 
       <aside className="hidden col-span-2 h-full overflow-hidden lg:block">
@@ -464,7 +465,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
       </aside>
 
       <div className="relative h-full min-h-0 lg:col-span-5">
-        <div className="relative h-full min-h-0 overflow-hidden border-dashed lg:border border-zinc-300 dark:border-zinc-700">
+        <div className="border-content-border relative h-full min-h-0 overflow-hidden lg:border">
           <div
             aria-hidden="true"
             className="page-transition"
@@ -521,7 +522,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
             </article>
 
             {links.length > 0 && (
-              <footer className="mt-10 border-t border-dashed border-zinc-200 pt-10 dark:border-zinc-800">
+              <footer className="border-content-border mt-10 border-t pt-10">
                 <ol className="space-y-2">
                   {links.map((item, index) => (
                     <li className="flex items-start gap-2" key={item.link}>
@@ -610,51 +611,14 @@ function ArticleRoot({ children }: ArticleRootProps) {
         ))}
       </div>
 
-      <aside className="hidden col-span-3 h-full overflow-hidden lg:block pl-10">
-        <div className="mb-10 mt-14">
-          <Heading.Light>UPDATED NEWS [ {posts.length} ]</Heading.Light>
-          {/* <WritePost /> */}
-        </div>
-
-        <nav aria-label="Posts">
-          <ul>
-            {posts.map((post, index) => {
-              const isCurrentPost = post.slug === currentPostSlug
-
-              return (
-                <li key={post.slug} className="pr-10">
-                  <Link
-                    aria-current={isCurrentPost ? 'page' : undefined}
-                    className="group relative grid grid-cols-[2rem_1fr] gap-3 py-3 transition-colors"
-                    href={`/news/${post.slug}`}
-                  >
-                    <span
-                      data-current={isCurrentPost}
-                      className="data-[current=true]:text-orange-500 font-mono text-xs text-zinc-400 mt-0.5"
-                    >
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span
-                      className={`font-medium text-xs leading-5 line-clamp-1 ${
-                        isCurrentPost
-                          ? 'text-zinc-950 dark:text-white'
-                          : 'text-zinc-500 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-zinc-100'
-                      }`}
-                    >
-                      {post.title}
-                    </span>
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
+      <aside className="col-span-3 hidden h-full min-h-0 lg:block">
+        <UpdatedNews currentPostSlug={currentPostSlug} posts={posts} />
       </aside>
 
       <footer className="hidden h-14 w-full grid-cols-10 lg:col-span-10 lg:grid">
-        <div className="col-span-2 border-t border-dashed border-zinc-300 dark:border-zinc-700"></div>
+        <div className="border-content-border col-span-2 border-t"></div>
 
-        <div className="relative col-span-5 flex h-full items-center justify-center border-x border-dashed border-zinc-300 dark:border-zinc-700">
+        <div className="border-content-border relative col-span-5 flex h-full items-center justify-center border-x">
           <p className="text-xs font-medium text-zinc-400 -tracking-wider line-clamp-1">
             Architected and built by Andres • Help keep{' '}
             <strong className="font-medium text-orange-500">
@@ -663,7 +627,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
           </p>
         </div>
 
-        <div className="col-span-3 border-t border-dashed border-zinc-300 dark:border-zinc-700"></div>
+        <div className="border-content-border col-span-3 border-t"></div>
       </footer>
 
       <Dialog open={focusModeOpen} onOpenChange={setFocusModeOpen}>
@@ -690,7 +654,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
         showSwipeHandle={false}
         swipeDirection="down"
       >
-        <DrawerContent className="min-h-[75dvh] overflow-visible border-zinc-200 border-t bg-white shadow-[0_-16px_50px_rgba(24,24,27,0.08)] before:pointer-events-none before:absolute before:inset-x-0 before:-top-40 before:h-40 before:bg-[linear-gradient(to_bottom,transparent,#ffffff)] before:content-[''] dark:border-zinc-800 dark:bg-[linear-gradient(to_bottom,#111113_0%,#0d0d0f_32%,#09090b_68%,#09090b_100%)] dark:shadow-none dark:before:bg-[linear-gradient(to_bottom,transparent,#111113)] lg:hidden">
+        <DrawerContent className="border-content-border min-h-[75dvh] overflow-visible border-t bg-white shadow-[0_-16px_50px_rgba(24,24,27,0.08)] before:pointer-events-none before:absolute before:inset-x-0 before:-top-40 before:h-40 before:bg-[linear-gradient(to_bottom,transparent,#ffffff)] before:content-[''] dark:bg-[linear-gradient(to_bottom,#111113_0%,#0d0d0f_32%,#09090b_68%,#09090b_100%)] dark:shadow-none dark:before:bg-[linear-gradient(to_bottom,transparent,#111113)] lg:hidden">
           <div className="overflow-y-auto px-6 pb-8 pt-5">
             <DrawerTitle className="text-lg text-zinc-950 dark:text-zinc-50">
               Posts
@@ -708,7 +672,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
                     <li key={post.slug}>
                       <Link
                         aria-current={isCurrentPost ? 'page' : undefined}
-                        className="group grid grid-cols-[2rem_1fr] gap-3 border-b border-zinc-100 py-3 transition-colors last:border-b-0 dark:border-zinc-800"
+                        className="border-content-border group grid grid-cols-[2rem_1fr] gap-3 border-b py-3 transition-colors last:border-b-0"
                         href={`/news/${post.slug}`}
                         onClick={() => setPostsOpen(false)}
                       >
@@ -740,7 +704,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
         showSwipeHandle={false}
         swipeDirection="down"
       >
-        <DrawerContent className="min-h-[60dvh] overflow-visible border-zinc-200 border-t bg-white shadow-[0_-16px_50px_rgba(24,24,27,0.08)] before:pointer-events-none before:absolute before:inset-x-0 before:-top-40 before:h-40 before:bg-[linear-gradient(to_bottom,transparent,#ffffff)] before:content-[''] dark:border-zinc-800 dark:bg-[linear-gradient(to_bottom,#111113_0%,#0d0d0f_32%,#09090b_68%,#09090b_100%)] dark:shadow-none dark:before:bg-[linear-gradient(to_bottom,transparent,#111113)] lg:hidden">
+        <DrawerContent className="border-content-border min-h-[60dvh] overflow-visible border-t bg-white shadow-[0_-16px_50px_rgba(24,24,27,0.08)] before:pointer-events-none before:absolute before:inset-x-0 before:-top-40 before:h-40 before:bg-[linear-gradient(to_bottom,transparent,#ffffff)] before:content-[''] dark:bg-[linear-gradient(to_bottom,#111113_0%,#0d0d0f_32%,#09090b_68%,#09090b_100%)] dark:shadow-none dark:before:bg-[linear-gradient(to_bottom,transparent,#111113)] lg:hidden">
           <div className="overflow-y-auto px-6 pb-8 pt-5">
             <DrawerTitle className="text-lg text-zinc-950 dark:text-zinc-50">
               Reading options
