@@ -1,8 +1,22 @@
-import { ArrowUpRight01Icon } from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
 import { Logo } from '@/components/logo'
-import { ThemeToggle } from '@/components/theme-toggle'
-import Image from 'next/image'
+
+const benefits = [
+  {
+    title: 'AI-organized for your learning',
+    description:
+      'Everything is thoughtfully organized with AI to make your learning clear and focused.',
+  },
+  {
+    title: 'Understand every new word',
+    description:
+      'See vocabulary in context and turn difficult passages into clear ideas.',
+  },
+  {
+    title: 'Train your listening skills',
+    description:
+      'Listen as you read to connect pronunciation, meaning, and confidence.',
+  },
+]
 
 function GoogleLogo({ className }: { className?: string }) {
   return (
@@ -31,41 +45,44 @@ export default function LoginPage() {
   return (
     <main className="min-h-dvh bg-white p-0 text-zinc-950 transition-colors dark:bg-zinc-950 dark:text-zinc-50">
       <div className="mx-auto grid min-h-dvh max-w-[1800px] overflow-hidden lg:min-h-[calc(100dvh)] lg:grid-cols-[1.08fr_0.92fr] lg:rounded-[0.5rem]">
-        <section className="relative min-h-56 overflow-hidden bg-zinc-900 sm:min-h-72 lg:min-h-0">
-          <Image
-            src="https://images.unsplash.com/photo-1750809411151-c46ca3d43b97?auto=format&fit=crop&q=85&w=1800"
-            alt="A person reading among tall library shelves"
-            fill
-            priority
-            sizes="(min-width: 1024px) 55vw, 100vw"
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/10 to-black/75" />
+        <section
+          className="relative overflow-hidden bg-zinc-900 bg-cover bg-center px-6 py-6 text-white sm:px-9 sm:py-9 lg:flex lg:min-h-0 lg:flex-col lg:justify-between lg:px-12 lg:py-12"
+          style={{ backgroundImage: "url('/login.png')" }}
+        >
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-zinc-950/35 via-zinc-950/10 to-zinc-950/30" />
 
-          <div className="absolute left-6 top-6 z-10 text-white sm:left-9 sm:top-9 [&_span]:!text-white [&_svg]:!size-10 [&_svg]:!text-white">
+          <div className="relative z-10 [&_span]:!text-white [&_svg]:!size-10 [&_svg]:!text-white">
             <Logo />
           </div>
 
-          <div className="absolute inset-x-6 bottom-6 text-white sm:inset-x-9 sm:bottom-9 lg:inset-x-12 lg:bottom-12">
-            <p className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.28em] text-white/60">
-              A living library
+          <div className="relative z-10 mt-12 max-w-2xl sm:mt-16 lg:my-auto lg:py-12">
+            <p className="font-mono text-[0.65rem] uppercase tracking-[0.28em] text-white/50">
+              English that stays with you
             </p>
-            <h2 className="max-w-xl text-2xl font-semibold leading-tight -tracking-widest sm:text-4xl lg:text-5xl">
-              Turn every story into a new way to understand English.
+            <h2 className="mt-3 max-w-xl text-2xl font-semibold leading-tight tracking-[-0.05em] sm:text-3xl lg:text-4xl xl:text-5xl">
+              Learn through the stories shaping the world.
             </h2>
-            <a
-              href="https://unsplash.com/photos/a-man-reads-a-book-in-a-library-pbQJaPEcc34"
-              target="_blank"
-              rel="noreferrer"
-              className="mt-7 hidden w-fit items-center gap-1 text-xs text-white/55 transition-colors hover:text-white lg:flex"
-            >
-              Photo by Elijah Crouch
-              <HugeiconsIcon
-                icon={ArrowUpRight01Icon}
-                className="size-3"
-                strokeWidth={1.8}
-              />
-            </a>
+
+            <div className="mt-8 divide-y divide-white/35 border-y border-white/35 lg:mt-12">
+              {benefits.map(({ title, description }, index) => (
+                <article
+                  key={title}
+                  className="grid grid-cols-[3.75rem_1fr] gap-5 py-5 sm:grid-cols-[5rem_1fr] sm:gap-8 lg:grid-cols-[6rem_1fr] lg:py-6"
+                >
+                  <p className="text-2xl leading-none tracking-[-0.08em] text-white sm:text-3xl lg:text-4xl">
+                    0{index + 1}
+                  </p>
+                  <div>
+                    <h3 className="max-w-md text-lg uppercase leading-[0.95] tracking-[-0.02em] text-white sm:text-xl lg:text-2xl">
+                      {title}
+                    </h3>
+                    <p className="mt-3 max-w-md text-xs leading-4 text-white/70 sm:text-[13px] sm:leading-5">
+                      {description}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
