@@ -556,7 +556,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
               />
             </Link>
 
-            <div className="flex items-center gap-2.5 rounded-2xl border border-zinc-300 bg-zinc-100/90 p-2 backdrop-blur-sm dark:border-zinc-700 dark:bg-zinc-800/90">
+            <div className="flex items-center gap-2.5 rounded-2xl border border-zinc-300 bg-zinc-100/90 p-2 backdrop-blur-sm dark:border-zinc-700 dark:bg-zinc-900/40">
               <div className="justify-self-start">
                 <AudioPlayer
                   author={author}
