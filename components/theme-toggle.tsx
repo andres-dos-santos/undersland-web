@@ -1,105 +1,91 @@
 'use client'
 
-import { Moon02Icon, Sun03Icon } from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-type Theme = 'light' | 'dark'
-type AnimationPhase = 'idle' | 'out' | 'in'
+type Theme = 'system' | 'light' | 'dark'
 
-function getTheme(): Theme {
-  return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+const themes: { label: string; value: Theme }[] = [
+  { label: 'System', value: 'system' },
+  { label: 'Light', value: 'light' },
+  { label: 'Dark', value: 'dark' },
+]
+
+function getSavedTheme(): Theme {
+  const theme = localStorage.getItem('theme')
+
+  return theme === 'light' || theme === 'dark' ? theme : 'system'
+}
+
+function applyTheme(theme: Theme) {
+  const isDark =
+    theme === 'dark' ||
+    (theme === 'system' &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches)
+
+  document.documentElement.classList.toggle('dark', isDark)
+  document.documentElement.style.colorScheme = isDark ? 'dark' : 'light'
 }
 
 interface Props {
   variant?: 'icon' | 'text'
 }
 
-export function ThemeToggle({ variant = 'icon' }: Props) {
+export function ThemeToggle({ variant: _variant = 'icon' }: Props) {
   const [theme, setTheme] = useState<Theme | null>(null)
-  const [animationPhase, setAnimationPhase] = useState<AnimationPhase>('idle')
-  const timeouts = useRef<ReturnType<typeof setTimeout>[]>([])
-  const audioContext = useRef<AudioContext | null>(null)
 
   useEffect(() => {
-    setTheme(getTheme())
+    const savedTheme = getSavedTheme()
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+
+    setTheme(savedTheme)
+    applyTheme(savedTheme)
+
+    const handleSystemThemeChange = () => {
+      if (getSavedTheme() === 'system') applyTheme('system')
+    }
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key !== 'theme') return
+
+      const nextTheme = getSavedTheme()
+      setTheme(nextTheme)
+      applyTheme(nextTheme)
+    }
+
+    media.addEventListener('change', handleSystemThemeChange)
+    window.addEventListener('storage', handleStorageChange)
 
     return () => {
-      for (const timeout of timeouts.current) clearTimeout(timeout)
-      void audioContext.current?.close()
+      media.removeEventListener('change', handleSystemThemeChange)
+      window.removeEventListener('storage', handleStorageChange)
     }
   }, [])
 
-  function playClickSound() {
-    const context = audioContext.current ?? new AudioContext()
-    const oscillator = context.createOscillator()
-    const gain = context.createGain()
-    const now = context.currentTime
-
-    audioContext.current = context
-    oscillator.type = 'sine'
-    oscillator.frequency.setValueAtTime(620, now)
-    oscillator.frequency.exponentialRampToValueAtTime(280, now + 0.045)
-    gain.gain.setValueAtTime(0.055, now)
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05)
-
-    oscillator.connect(gain)
-    gain.connect(context.destination)
-    oscillator.start(now)
-    oscillator.stop(now + 0.05)
+  function selectTheme(nextTheme: Theme) {
+    localStorage.setItem('theme', nextTheme)
+    applyTheme(nextTheme)
+    setTheme(nextTheme)
   }
-
-  function toggleTheme() {
-    if (animationPhase !== 'idle') return
-
-    playClickSound()
-    setAnimationPhase('out')
-
-    timeouts.current.push(
-      setTimeout(() => {
-        const nextTheme = getTheme() === 'dark' ? 'light' : 'dark'
-
-        document.documentElement.classList.toggle('dark', nextTheme === 'dark')
-        document.documentElement.style.colorScheme = nextTheme
-        localStorage.setItem('theme', nextTheme)
-        setTheme(nextTheme)
-        setAnimationPhase('in')
-
-        timeouts.current.push(setTimeout(() => setAnimationPhase('idle'), 20))
-      }, 140),
-    )
-  }
-
-  const isDark = theme === 'dark'
-  const label = isDark ? 'Use light theme' : 'Use dark theme'
 
   return (
-    <button
-      type="button"
-      onClick={toggleTheme}
-      aria-label={label}
-      title={label}
-      className={
-        variant === 'text'
-          ? 'whitespace-nowrap text-xs font-medium text-zinc-600 transition-colors hover:text-zinc-950 hover:underline focus-visible:outline-none focus-visible:underline dark:text-zinc-400 dark:hover:text-white'
-          : 'group grid size-7 cursor-pointer place-items-center rounded-full'
-      }
+    <fieldset
+      aria-label="Theme"
+      className="flex items-center rounded-lg bg-zinc-100 p-1 dark:bg-zinc-900"
     >
-      <span
-        className={`transition-transform duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
-          animationPhase === 'idle' ? 'scale-100' : 'scale-0'
-        }`}
-      >
-        {variant === 'text' ? (
-          label
-        ) : (
-          <HugeiconsIcon
-            icon={isDark ? Sun03Icon : Moon02Icon}
-            className="size-3.5 fill-zinc-400 text-zinc-400 transition-colors duration-300 group-hover:fill-zinc-700 group-hover:text-zinc-700 dark:group-hover:fill-white dark:group-hover:text-white"
-            strokeWidth={2}
-          />
-        )}
-      </span>
-    </button>
+      {themes.map((option) => {
+        const isSelected = theme === option.value
+
+        return (
+          <button
+            key={option.value}
+            type="button"
+            onClick={() => selectTheme(option.value)}
+            aria-pressed={isSelected}
+            className="rounded-md px-3 py-1.5 text-xs font-medium text-zinc-500 transition-colors hover:text-zinc-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 aria-pressed:bg-white aria-pressed:text-zinc-950 aria-pressed:shadow-sm dark:text-zinc-400 dark:hover:text-white dark:aria-pressed:bg-zinc-800 dark:aria-pressed:text-white"
+          >
+            {option.label}
+          </button>
+        )
+      })}
+    </fieldset>
   )
 }

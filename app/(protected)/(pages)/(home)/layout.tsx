@@ -25,7 +25,7 @@ export default async function Home({ children }: HomeProps) {
     <div className="grid min-h-[calc(100dvh_-_56px)] mx-auto max-w-6xl content-start grid-cols-1 sm:min-h-[calc(100dvh_-_80px)] lg:h-[calc(100vh_-_80px)] lg:grid-cols-11 lg:content-normal">
       <main className="flex min-w-0 flex-col border-content-border pb-24 lg:col-span-6 lg:overflow-y-auto lg:border-r lg:pb-0">
         <div className="flex h-24 items-start px-5 pt-5 sm:px-10 lg:h-30 lg:pt-14">
-          <h1 className="text-2xl font-semibold -tracking-wide sm:text-3xl">
+          <h1 className="text-5xl font-semibold uppercase -tracking-wide sm:text-3xl">
             A living library for english learners
           </h1>
         </div>
@@ -53,17 +53,17 @@ export default async function Home({ children }: HomeProps) {
 
         <form
           action=""
-          className="group fixed inset-x-5 backdrop-blur-sm bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-40 mx-auto flex h-14 min-h-14 max-h-14 max-w-[16rem] items-center gap-2.5 rounded-full border border-content-border bg-zinc-50 px-5 sm:gap-5 lg:static lg:inset-auto lg:z-auto lg:mb-10 lg:mt-auto lg:w-full lg:flex-1"
+          className="group fixed inset-x-5 bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-40 mx-auto flex h-14 min-h-14 max-h-14 max-w-[16rem] items-center gap-2.5 rounded-full border border-content-border bg-white/90 px-5 backdrop-blur-sm transition-colors sm:gap-5 lg:static lg:inset-auto lg:z-auto lg:mb-10 lg:mt-auto lg:w-full lg:flex-1 lg:bg-zinc-50 dark:bg-zinc-900/90 lg:dark:bg-zinc-900"
         >
           <HugeiconsIcon
             icon={SearchIcon}
             color="currentColor"
             strokeWidth={1.5}
-            className="size-6 text-zinc-500 group-focus-within:text-zinc-950 dark:group-focus-within:text-white"
+            className="size-6 text-zinc-500 transition-colors group-focus-within:text-zinc-950 dark:text-zinc-400 dark:group-focus-within:text-white"
           />
           <input
             type="text"
-            className="outline-none w-full h-full placeholder:text-zinc-400 text-sm dark:placeholder:text-zinc-300/60"
+            className="h-full w-full text-sm text-zinc-950 outline-none placeholder:text-zinc-400 dark:text-zinc-50 dark:placeholder:text-zinc-500"
             placeholder="Search"
           />
         </form>

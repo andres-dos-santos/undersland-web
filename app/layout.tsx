@@ -56,7 +56,8 @@ const themeScript = `
 
     const applyTheme = () => {
       const savedTheme = localStorage.getItem('theme');
-      const isDark = savedTheme === 'dark' || (savedTheme === null && media.matches);
+      const isSystem = savedTheme === null || savedTheme === 'system';
+      const isDark = savedTheme === 'dark' || (isSystem && media.matches);
 
       root.classList.toggle('dark', isDark);
       root.style.colorScheme = isDark ? 'dark' : 'light';

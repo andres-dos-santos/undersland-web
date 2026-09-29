@@ -544,8 +544,19 @@ function ArticleRoot({ children }: ArticleRootProps) {
             )}
           </div>
 
-          <div className="absolute inset-x-0 bottom-0 z-40 flex w-full items-end justify-center px-5 pt-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:min-h-32 sm:items-center sm:px-10 sm:py-4 lg:hidden">
-            <div className="flex items-center gap-2.5 rounded-2xl backdrop-blur-sm border border-zinc-300 p-2 dark:border-zinc-700 bg-background/65">
+          <div className="absolute inset-x-0 bottom-0 z-40 flex w-full items-center justify-center px-2.5 pt-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:min-h-32 sm:px-10 sm:py-4 lg:hidden">
+            <Link
+              aria-label="Back to home"
+              href="/"
+              className="mr-1.5 flex size-16 shrink-0 items-center justify-center rounded-2xl border border-zinc-400 bg-white shadow-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 dark:border-zinc-700 dark:bg-zinc-900/20 dark:hover:bg-zinc-800 sm:mr-2.5"
+            >
+              <ArrowLeft
+                className="size-4 text-black dark:text-white"
+                strokeWidth={2}
+              />
+            </Link>
+
+            <div className="flex items-center gap-2.5 rounded-2xl border border-zinc-300 bg-zinc-100/90 p-2 backdrop-blur-sm dark:border-zinc-700 dark:bg-zinc-900/90">
               <div className="justify-self-start">
                 <AudioPlayer
                   author={author}
@@ -590,6 +601,18 @@ function ArticleRoot({ children }: ArticleRootProps) {
                   strokeWidth={2}
                 />
               </button>
+            </div>
+
+            <div
+              title={`Current level: ${levelIndex + 1}`}
+              className="ml-1.5 flex size-16 shrink-0 flex-col items-center justify-center rounded-2xl border border-zinc-400 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900/20 sm:ml-2.5"
+            >
+              <span className="text-[8px] font-semibold leading-none tracking-wider text-zinc-500 dark:text-zinc-400">
+                LVL
+              </span>
+              <span className="mt-1 font-mono text-sm font-semibold leading-none text-zinc-950 dark:text-white">
+                {levelIndex + 1}
+              </span>
             </div>
           </div>
         </div>
