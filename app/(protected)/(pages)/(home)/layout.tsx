@@ -23,7 +23,7 @@ export default async function Home({ children }: HomeProps) {
 
   return (
     <div className="grid min-h-[calc(100dvh_-_56px)] mx-auto max-w-6xl content-start grid-cols-1 sm:min-h-[calc(100dvh_-_80px)] lg:h-[calc(100vh_-_80px)] lg:grid-cols-11 lg:content-normal">
-      <main className="flex flex-col border-content-border min-w-0 lg:col-span-6 lg:overflow-y-auto lg:border-r">
+      <main className="flex min-w-0 flex-col border-content-border pb-24 lg:col-span-6 lg:overflow-y-auto lg:border-r lg:pb-0">
         <div className="flex h-24 items-start px-5 pt-5 sm:px-10 lg:h-30 lg:pt-14">
           <h1 className="text-2xl font-semibold -tracking-wide sm:text-3xl">
             A living library for english learners
@@ -53,7 +53,7 @@ export default async function Home({ children }: HomeProps) {
 
         <form
           action=""
-          className="group bg-zinc-50 px-5 rounded-full mx-auto mt-auto flex h-14 max-h-14 border border-content-border mb-10 max-w-[16rem] flex-1 items-center gap-2.5 sm:gap-5"
+          className="group fixed inset-x-5 backdrop-blur-sm bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-40 mx-auto flex h-14 min-h-14 max-h-14 max-w-[16rem] items-center gap-2.5 rounded-full border border-content-border bg-zinc-50 px-5 sm:gap-5 lg:static lg:inset-auto lg:z-auto lg:mb-10 lg:mt-auto lg:w-full lg:flex-1"
         >
           <HugeiconsIcon
             icon={SearchIcon}
