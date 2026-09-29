@@ -9,17 +9,11 @@ export async function Header() {
   const user = sessionCookie ? await getCurrentUser(sessionCookie) : null
 
   return (
-    <header className="border-content-border flex h-10 w-full shrink-0 items-center justify-between border-b-0 pl-2.5 pr-5 sm:h-14 sm:pl-5 sm:pr-8 lg:border-b">
+    <header className="border-content-border pt-8 flex h-14 w-full shrink-0 items-center justify-between border-b-0 pl-2.5 pr-5 sm:h-20 sm:pl-5 sm:pr-8 lg:border-b">
       <Logo className="size-10" />
 
-      <div className="flex h-7 px-10 items-center justify-center bg-gradient-to-r from-blue-600 via-cyan-500 to-purple-600">
-        <p className="text-[11px] font-semibold tracking-wider text-zinc-900 uppercase">
-          This version is in the testing phase and is subject to errors.
-        </p>
-      </div>
-
       <div className="flex items-center gap-5">
-        <MobileTopics />
+        {/* <MobileTopics /> */}
         {user && (
           <Link
             href="/profile"

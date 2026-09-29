@@ -89,7 +89,12 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       </head>
       <body className="min-h-full flex flex-col">
         {children}
-        <AuthFeedback />
+        {/* <AuthFeedback /> */}
+        <div className="fixed top-0 right-0 left-0 flex h-5 sm:h-7 px-10 items-center justify-center bg-red-700">
+          <p className="text-[9px] sm:text-[11px] font-semibold tracking-wider text-white uppercase truncate">
+            This version is in the testing phase and is subject to errors.
+          </p>
+        </div>
       </body>
     </html>
   )

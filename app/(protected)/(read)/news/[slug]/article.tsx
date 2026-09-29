@@ -351,8 +351,8 @@ function ArticleRoot({ children }: ArticleRootProps) {
   }, [decreaseLevel, increaseLevel, nextPostSlug, previousPostSlug, router])
 
   return (
-    <div className="grid h-full min-h-0 grid-cols-1 grid-rows-[3.5rem_minmax(0,1fr)] overflow-hidden px-2.5 lg:grid-cols-10 lg:grid-rows-[3.5rem_minmax(0,1fr)_3.5rem] lg:px-0">
-      <header className="col-span-1 h-14 w-full lg:col-span-10 lg:grid lg:grid-cols-10">
+    <div className="grid h-full min-h-0 grid-cols-1 grid-rows-[minmax(0,1fr)] overflow-hidden px-2.5 lg:grid-cols-10 lg:grid-rows-[3.5rem_minmax(0,1fr)_3.5rem] lg:px-0">
+      <header className="col-span-1 hidden h-14 w-full lg:col-span-10 lg:grid lg:grid-cols-10">
         <Link
           href="/"
           className="border-content-border group relative col-span-2 hidden items-center border-b px-5 lg:flex"
