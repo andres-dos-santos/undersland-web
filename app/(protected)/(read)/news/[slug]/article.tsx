@@ -548,7 +548,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
             <Link
               aria-label="Back to home"
               href="/"
-              className="mr-1.5 flex size-16 shrink-0 items-center justify-center rounded-2xl border border-zinc-400 bg-white shadow-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 dark:border-zinc-700 dark:bg-zinc-900/20 dark:hover:bg-zinc-800 sm:mr-2.5"
+              className="mr-1.5 flex size-16 shrink-0 items-center justify-center rounded-2xl border border-zinc-400 bg-white shadow-sm transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 dark:border-zinc-700 dark:bg-background dark:hover:bg-zinc-800 sm:mr-2.5"
             >
               <ArrowLeft
                 className="size-4 text-black dark:text-white"
@@ -605,7 +605,7 @@ function ArticleRoot({ children }: ArticleRootProps) {
 
             <div
               title={`Current level: ${levelIndex + 1}`}
-              className="ml-1.5 flex size-16 shrink-0 flex-col items-center justify-center rounded-2xl border border-zinc-400 bg-white shadow-sm dark:border-zinc-700 dark:bg-zinc-900/20 sm:ml-2.5"
+              className="ml-1.5 flex size-16 shrink-0 flex-col items-center justify-center rounded-2xl border border-zinc-400 bg-white shadow-sm dark:border-zinc-700 dark:bg-background sm:ml-2.5"
             >
               <span className="text-[8px] font-semibold leading-none tracking-wider text-zinc-500 dark:text-zinc-400">
                 LVL
