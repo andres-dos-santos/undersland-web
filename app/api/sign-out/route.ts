@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server'
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001'
 const SESSION_COOKIE = 'understand-session'
+const sessionCookieDomain =
+  process.env.SESSION_COOKIE_DOMAIN ??
+  (process.env.NODE_ENV === 'production' ? '.undersland.com' : undefined)
 
 export async function POST(request: Request) {
   const cookie = request.headers.get('cookie')
@@ -24,6 +27,7 @@ export async function POST(request: Request) {
     httpOnly: true,
     sameSite: 'lax',
     secure: process.env.NODE_ENV === 'production',
+    domain: sessionCookieDomain,
     path: '/',
     maxAge: 0,
   })
