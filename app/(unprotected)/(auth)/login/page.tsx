@@ -43,10 +43,10 @@ function GoogleLogo({ className }: { className?: string }) {
 
 export default function LoginPage() {
   return (
-    <main className="min-h-dvh bg-white p-0 text-zinc-950 transition-colors dark:bg-zinc-950 dark:text-zinc-50">
-      <div className="mx-auto grid min-h-dvh max-w-[1800px] overflow-hidden lg:min-h-[calc(100dvh)] lg:grid-cols-[1.08fr_0.92fr] lg:rounded-[0.5rem]">
+    <main className="h-dvh overflow-hidden bg-white p-0 text-zinc-950 transition-colors dark:bg-zinc-950 dark:text-zinc-50">
+      <div className="mx-auto grid h-full max-w-[1800px] grid-rows-[repeat(2,minmax(0,1fr))] overflow-hidden lg:grid-cols-[1.08fr_0.92fr] lg:grid-rows-1 lg:rounded-[0.5rem]">
         <section
-          className="relative overflow-hidden bg-zinc-900 bg-cover bg-center px-6 py-6 text-white sm:px-9 sm:py-9 lg:flex lg:min-h-0 lg:flex-col lg:justify-between lg:px-12 lg:py-12"
+          className="relative flex min-h-0 flex-col justify-start overflow-hidden bg-zinc-900 bg-cover bg-center px-4 py-4 text-white sm:px-9 sm:py-9 lg:justify-between lg:px-12 lg:py-12"
           style={{ backgroundImage: "url('/login.png')" }}
         >
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-zinc-950/35 via-zinc-950/10 to-zinc-950/30" />
@@ -55,28 +55,28 @@ export default function LoginPage() {
             <Logo />
           </div>
 
-          <div className="relative z-10 mt-12 max-w-2xl sm:mt-16 lg:my-auto lg:py-12">
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.28em] text-white/50">
+          <div className="relative z-10 mt-auto max-w-2xl lg:my-auto lg:py-12">
+            <p className="hidden font-mono text-[0.65rem] uppercase tracking-[0.28em] text-white/50 lg:block">
               English that stays with you
             </p>
-            <h2 className="mt-3 max-w-xl text-2xl font-semibold leading-tight tracking-[-0.05em] sm:text-3xl lg:text-4xl xl:text-5xl">
+            <h2 className="mt-3 hidden max-w-xl text-2xl font-semibold leading-tight tracking-[-0.05em] lg:block lg:text-4xl xl:text-5xl">
               Learn through the stories shaping the world.
             </h2>
 
-            <div className="mt-8 divide-y divide-white/35 border-y border-white/35 lg:mt-12">
+            <div className="divide-y divide-white/35 border-t border-white/35 lg:mt-12">
               {benefits.map(({ title, description }, index) => (
                 <article
                   key={title}
-                  className="grid grid-cols-[3.75rem_1fr] gap-5 py-5 sm:grid-cols-[5rem_1fr] sm:gap-8 lg:grid-cols-[6rem_1fr] lg:py-6"
+                  className="grid grid-cols-[2.75rem_1fr] gap-3 py-3 sm:grid-cols-[5rem_1fr] sm:gap-8 sm:py-5 lg:grid-cols-[6rem_1fr] lg:py-6"
                 >
-                  <p className="text-2xl leading-none tracking-[-0.08em] text-white sm:text-3xl lg:text-4xl">
+                  <p className="text-xl leading-none tracking-[-0.08em] text-white sm:text-3xl lg:text-4xl">
                     0{index + 1}
                   </p>
                   <div>
-                    <h3 className="max-w-md text-lg uppercase leading-[0.95] tracking-[-0.02em] text-white sm:text-xl lg:text-2xl">
+                    <h3 className="max-w-md text-base uppercase leading-[0.95] tracking-[-0.02em] text-white sm:text-xl lg:text-2xl">
                       {title}
                     </h3>
-                    <p className="mt-3 max-w-md text-xs leading-4 text-white/70 sm:text-[13px] sm:leading-5">
+                    <p className="mt-2 max-w-md text-[11px] leading-4 text-white/70 sm:mt-3 sm:text-[13px] sm:leading-5">
                       {description}
                     </p>
                   </div>
@@ -86,16 +86,16 @@ export default function LoginPage() {
           </div>
         </section>
 
-        <section className="relative flex items-center justify-center bg-white px-6 py-12 transition-colors dark:bg-zinc-950 sm:px-12 lg:px-16 xl:px-24">
+        <section className="relative flex min-h-0 items-start justify-center bg-white px-5 py-4 transition-colors dark:bg-zinc-950 sm:px-12 sm:py-12 lg:items-center lg:px-16 xl:px-24">
           <div className="w-full max-w-sm">
-            <div className="mb-10">
-              <p className="mb-3 font-mono text-xs uppercase tracking-[0.24em] text-zinc-500 dark:text-zinc-400">
+            <div className="mb-5 sm:mb-10">
+              <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.24em] text-zinc-500 dark:text-zinc-400 sm:mb-3 sm:text-xs">
                 Welcome back
               </p>
-              <h1 className="text-3xl tracking-[-0.05em] text-zinc-950 dark:text-zinc-50 sm:text-4xl">
+              <h1 className="text-2xl tracking-[-0.05em] text-zinc-950 dark:text-zinc-50 sm:text-4xl">
                 Continue your journey.
               </h1>
-              <p className="mt-4 max-w-sm text-[13px] leading-6 text-zinc-500 dark:text-zinc-400 sm:text-sm">
+              <p className="mt-2 max-w-sm text-xs leading-5 text-zinc-500 dark:text-zinc-400 sm:mt-4 sm:text-sm sm:leading-6">
                 Sign in to pick up where you left off and keep every new word
                 within reach.
               </p>
